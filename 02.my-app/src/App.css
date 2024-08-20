@@ -1,31 +1,28 @@
-.App {
+div {   /* div는 무조건 root를 의미함 : <></> 또는 <Fragment></Fragment>도 이걸로 호출 가능  */
+  background-color: brown;
+  color: white;
+  padding: 50px;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  color: azure;
+}
+h3 {
+  background-color: rgb(85, 0, 0);
+}
+.class1 {
+  border: 2px dotted;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+#id1 {
+  color:black;
+  border: 2px solid white;
+}
+
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 10s backwards;
+    animation: App-logo-spin infinite 20s alternate;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
@@ -33,6 +30,6 @@
     transform: rotate(0deg);
   }
   to {
-    transform: rotate(3600deg);
+    transform: rotate(20000deg);
   }
-}
+} */
