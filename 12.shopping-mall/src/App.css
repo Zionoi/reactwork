@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+}
+
+.main-bg {
+  height: 400px;
+  background-image: url("../public/img/clothes3.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.imgList{
+  width: 100%;
+  height: auto; /* 이미지의 비율을 유지하면서 너비에 맞춰 높이를 조정 */
+
+  object-fit: cover; /* 이미지가 박스 안에 꽉 차도록 조정, 비율을 유지함 */
+  margin-bottom: 10px; /* 이미지 간격 */
+}

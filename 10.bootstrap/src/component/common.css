@@ -2,8 +2,6 @@ header {
     /* 요소 옆으로 나열 */
     display: flex;  
     justify-content: space-around;
-    
-
 }
 header img {
     width: 100px;
