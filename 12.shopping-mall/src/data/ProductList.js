@@ -24,10 +24,16 @@ let pList = [
     },
     {
         id : 2,
-        title : "shirts2",
+        title : "shirts1",
         contest : "Made in States",
         price : 35000
     },
+    {
+        id : 3,
+        title : "shirts2",
+        contest : "Made in States",
+        price : 40000
+    }
 ]
 
 export default pList;

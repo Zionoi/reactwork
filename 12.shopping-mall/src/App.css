@@ -1,10 +1,11 @@
 .App {
   text-align: center;
+  /* width: 2000px; */
 }
 
 .main-bg {
-  height: 400px;
-  background-image: url("../public/img/clothes3.jpg");
+  height: 200px;
+  background-image: url("../public/img/main.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
