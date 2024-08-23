@@ -5,12 +5,13 @@ import clothes4 from './img/clothes4.jpg';
 // import clothes2 from './img/clothes2.png';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
+import { Navbar, Container, Nav, Row, Col, Button } from 'react-bootstrap';
 import { useState } from 'react';
 //import {num1, num2} from './data/ProductList';
 import pList from './data/ProductList';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './pages/Details';
+import axios from 'axios';
 
 /*
   * react-router-dom
@@ -23,6 +24,13 @@ import Detail from './pages/Details';
   1. 설치 : npm i react-router-dom
   2. index.js 파일에서 <BroswerRouter></BroswerRouter> 로 <App/> 감싸기 
   3. import { BroswerRouter } from '/react-router-dom'; 임폴트 하면 세팅 끝
+
+*/
+
+/*
+  * ajax로 서버로부터 데이터 얻어오기
+    1. 설치하기 : npm i axios
+    2. import axios from 'axios'; 임폴트하기
 
 */
 
@@ -44,10 +52,12 @@ function App() {
     3. useNavigate() 함수 사용
 
   */
-
+  
+    let [urlCount, setUrlcount] = useState(2);
   return ( 
     <div className="App">
   <div className='main-bg'/>
+  
   <Navbar bg="black" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
@@ -73,6 +83,7 @@ function App() {
       {/* 하나의 페이지  // 위치는 path로 설정 localhost:3000/detail 이되는것 // */}
       <Route path='/' element={<div>
         루트페이지 입니다
+
         <Container>
         <Row>
           <Col md={4}>
@@ -105,7 +116,39 @@ function App() {
         
         </Row>
       </Container>
-        
+      {/* AJAX로 데이터 가져오기 axios*/}
+      {/* <Button variant="success" onClick={() => {
+        axios.get('https://raw.githubusercontent.com/professorjiwon/data/main/data2.json')
+             .then(result =>{
+                console.log(result);
+                let clothesCopy = [...clothes];
+                clothesCopy.unshift(result);
+                setClothes(clothesCopy);
+                console.log(clothes);
+             })
+             .catch(()=>{
+              console.log('실패');
+             })
+        }}>서버에서 데이터 가져오기
+      </Button> */}
+
+      <Button variant="success" onClick={() => {
+        axios.get(`https://raw.githubusercontent.com/professorjiwon/data/main/data${urlCount}.json`)
+             .then(result =>{
+                console.log(result.data);
+                let clothesCopy = [...clothes,...result.data];
+                // clothesCopy.unshift();
+                setClothes(clothesCopy);
+                setUrlcount(urlCount+1);
+                
+             })
+             .catch(()=>{
+              console.log('실패');
+             })
+        }}>서버에서 데이터 가져오기
+      </Button>
+
+      
         </div>} /> 
 
 

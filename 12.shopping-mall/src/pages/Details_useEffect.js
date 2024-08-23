@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
     - 컴포넌트
     1. 생성 (mount)
     2. 재렌더링 (update)
-    3. 소명 (unmount)
+    3. 소멸 (unmount)
 
     class Detail2 extends React.Component {
         componentDidMount(){
