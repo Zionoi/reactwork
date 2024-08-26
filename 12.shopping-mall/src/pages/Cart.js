@@ -39,7 +39,7 @@ function Cart(){
                     <th>상품명</th>
                     <th>금액</th>
                     <th>수량</th>
-                    <th>변경하기</th>
+                    <th>총 금액</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,8 +50,9 @@ function Cart(){
                     <tr>
                         <td>{itemC.id}</td>
                         <td>{itemC.title}</td>
-                        <td>{itemC.id}</td>
+                        <td>{itemC.price}</td>
                         <td>{itemC.count}</td>
+                        <td>{itemC.price*itemC.count}</td>
                         <td>
                             <button variant="info" onClick={() => {
                                 dispatch(changeName())
