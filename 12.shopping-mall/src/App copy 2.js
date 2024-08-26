@@ -12,24 +12,8 @@ import pList from './data/ProductList';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './pages/Details';
 import axios from 'axios';
-import Cart from './pages/Cart';
 
-/*
-  ** 장바구니 만들기
 
-  * 외부 라이브러리 사용(Redux)
-  서버가 열려있다면 닫고 cmd창에
-  1) npm install @reduxjs/toolkit react-redux 쳐주기
-  2) src폴더 밑에 store폴더 만들고, store.js파일 만들기(src에 안만들어도 import만 잘하면 사용하는데 문제 없음 정리목적)
-  3) store.js 파일에 import {configureStore} from '@reduxjs/toolkit' 임폴트 해줌
-  4) 이후 js파일에 configureStore함수 안에 return대신 reducer : {} 를 사용함
-
-  5) index.js 에 <App/>및 컴포넌트를 감싸주는 <Provider store={store}> </provider> 태그 만들어주고
-  Provider, store 둘다 인덱스 파일에 임폴트
-  import {Provider} from 'react-redux';
-  import store from './store/store';
-
-*/
 
 
 function App() {
@@ -48,7 +32,7 @@ function App() {
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={()=>{ navigate('/')}}>Home</Nav.Link>
-            {/* <Nav.Link onClick={()=>{ navigate('/detail')}}>Detail</Nav.Link> */}
+            <Nav.Link onClick={()=>{ navigate('/detail')}}>Detail</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/Cart')}}>Cart</Nav.Link>
 
 
@@ -66,7 +50,7 @@ function App() {
 
         <Container>
         <Row>
-          {/* <Col md={4}>
+          <Col md={4}>
           <img className="imgList" src="/img/clothes1.jpg"/>
           <h4>{clothes[0].title}</h4>
           <p>{clothes[0].price}</p>
@@ -80,7 +64,7 @@ function App() {
           <img className="imgList" src={clothes4}/>
           <h4>{clothes[2].title}</h4>
           <p>{clothes[2].price}</p>
-          </Col> */}
+          </Col>
           
           {
              clothes.map(function(item,i,arr) {
@@ -120,9 +104,13 @@ function App() {
       {/* 파라미터를 여러개 넘겨주기 */}
       <Route path='/detail/:index/' element={<div>상세페이지 입니다<Detail clothes={clothes}  bg={'green'}/></div>}/> 
 
-        {/* Cart 컴포넌트 호출 */}
-      <Route path='/cart' element={<Cart />} />
-      
+
+
+      <Route path='/cart' element={<div>장바구니페이지 입니다</div>} />
+      <Route path='/about' element={<About/>}>
+        <Route path='member' element={<div>사람의 정보</div>} />
+        <Route path='location' element={<div>강남</div>} />
+      </Route>
       <Route path='*' element={<div>없는 페이지 입니다</div>}></Route>
     </Routes>
       
@@ -143,17 +131,13 @@ function About(){
 
 }
 
-
 function PListCol({clothes, i}){
   return(
     <>
       <Col md={4}>
-      <Link to={`/detail/${clothes.id}`} className="link-wrapper">
-        <img className="imgList" src={process.env.PUBLIC_URL + `/img/clothes${i}.jpg`} alt={clothes.title} />
+        <img className="imgList" src={process.env.PUBLIC_URL +`/img/clothes${i}.jpg`}/>
         <h4>{clothes.title}</h4>
         <p>{clothes.price}</p>
-      </Link>
-      <hr/>
       </Col>
     </>
   )

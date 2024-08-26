@@ -14,11 +14,11 @@ let Box = styled.div`
 
 `;
 
-// let Btn = styled.button`
-//     background : ${props => props.bg};
-//     color : brown;
-//     padding : 10px;
-// `;
+let Btn = styled.button`
+    background : ${props => props.bg};
+    color : brown;
+    padding : 10px;
+`;
 
 
 function Detail(props){
@@ -31,11 +31,7 @@ function Detail(props){
             return x.id == index;
         })
 
-        let Btn = styled.button`
-            background : ${props.bg};
-            color : brown;
-            padding : 10px;
-        `;
+
 
         console.log(index);
         console.log("findId : ",findId.id);
@@ -44,6 +40,9 @@ function Detail(props){
             <YellowBtn>버튼</YellowBtn>
             <Box>div</Box>
             <Btn bg={props.bg}>props버튼</Btn>
+
+            <Btn bg='pink'>핑크 버튼</Btn>
+            <Btn bg='yellow'>노란 버튼</Btn>
             
             <Container>
                 <Row>

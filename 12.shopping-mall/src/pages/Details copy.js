@@ -2,14 +2,12 @@ import { useEffect, useState } from 'react';
 import { Container, Row, Col, Button, Nav} from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import './../App.css';
-import { useDispatch } from 'react-redux'; 
-import {addToCart} from '../store/store'
 
 
 
 function Detail(props){
     let {index} = useParams();
-    const dispatch = useDispatch(); //
+     
 
     let findId = props.clothes.find(function(x){
         return x.id == index;
@@ -52,9 +50,7 @@ function Detail(props){
                             <h4>{findId.title}</h4>
                             <p>{findId.content}</p>
                             <p>{findId.price}</p>
-                            <Button variant="primary" onClick={() => {
-                                dispatch(addToCart(findId))
-                            }}>장바구니</Button>
+                            <Button variant="primary">주문하기</Button>
                         </Col>
                         </div>
                     </Row>

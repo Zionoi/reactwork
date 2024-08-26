@@ -6,39 +6,53 @@ import clothes4 from './img/clothes4.jpg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav, Row, Col, Button } from 'react-bootstrap';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 //import {num1, num2} from './data/ProductList';
 import pList from './data/ProductList';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './pages/Details';
 import axios from 'axios';
-import Cart from './pages/Cart';
+
 
 /*
-  ** 장바구니 만들기
+    * single page applicateon의 단점
+      - 컴포넌트사이의 state공유 어려움
+      - props로 넘겨줘야한다
+    
+    * 공유하는 파일을 만들어서 사용
+      1. Context Api 문법
+        잘 사용하지 않음
+            - 성능 이슈가 있음(하위파일에 변하지 않은 파일도 전부 재렌더링돼서 느림)
+            - 재 사용이 어렵다. (하위 자손에서 가끔 데이터를 못찾는경우가 있음)
 
-  * 외부 라이브러리 사용(Redux)
-  서버가 열려있다면 닫고 cmd창에
-  1) npm install @reduxjs/toolkit react-redux 쳐주기
-  2) src폴더 밑에 store폴더 만들고, store.js파일 만들기(src에 안만들어도 import만 잘하면 사용하는데 문제 없음 정리목적)
-  3) store.js 파일에 import {configureStore} from '@reduxjs/toolkit' 임폴트 해줌
-  4) 이후 js파일에 configureStore함수 안에 return대신 reducer : {} 를 사용함
+      2. Redux 같은 외부 라이브러리
+        주로 사용하는건 Redux
 
-  5) index.js 에 <App/>및 컴포넌트를 감싸주는 <Provider store={store}> </provider> 태그 만들어주고
-  Provider, store 둘다 인덱스 파일에 임폴트
-  import {Provider} from 'react-redux';
-  import store from './store/store';
 
 */
 
+//1. Context Api 문법
+/*
+  1) createContext() 로 보관함 만들기
+  2) 내가 사용할 위치를 Context1.Provider 로 감싸기
+  3) 하위 컴포넌트에서 사용시 : useContext(Context1)
+*/
 
+
+// createContext() : 보관함을 하나 만들었다 생각하면 됨. 앞에 export해줘야 다른 컴포넌트에서 사용 가능
+export let Context1 = createContext();
 function App() {
   
   let [clothes, setClothes] = useState(pList);
   let navigate = useNavigate();
+  let [urlCount, setUrlcount] = useState(2);
 
-
-    let [urlCount, setUrlcount] = useState(2);
+  
+ 
+  
+  //Context Api에 쓸 stock useState변수 생성후 윙createContext에 담을거임 첫번째 상품10, 두번째상품 7개, 세번째 상품5개
+  let [stock, setStock] = useState([10, 7, 5])
+  let [stock2, setStock2] = useState([11, 7, 5])
   return ( 
     <div className="App">
   <div className='main-bg'/>
@@ -48,11 +62,8 @@ function App() {
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={()=>{ navigate('/')}}>Home</Nav.Link>
-            {/* <Nav.Link onClick={()=>{ navigate('/detail')}}>Detail</Nav.Link> */}
+            <Nav.Link onClick={()=>{ navigate('/detail')}}>Detail</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/Cart')}}>Cart</Nav.Link>
-
-
-
 
           </Nav>
         </Container>
@@ -66,7 +77,7 @@ function App() {
 
         <Container>
         <Row>
-          {/* <Col md={4}>
+          <Col md={4}>
           <img className="imgList" src="/img/clothes1.jpg"/>
           <h4>{clothes[0].title}</h4>
           <p>{clothes[0].price}</p>
@@ -80,7 +91,7 @@ function App() {
           <img className="imgList" src={clothes4}/>
           <h4>{clothes[2].title}</h4>
           <p>{clothes[2].price}</p>
-          </Col> */}
+          </Col>
           
           {
              clothes.map(function(item,i,arr) {
@@ -117,12 +128,14 @@ function App() {
         </div>} /> 
 
 
-      {/* 파라미터를 여러개 넘겨주기 */}
-      <Route path='/detail/:index/' element={<div>상세페이지 입니다<Detail clothes={clothes}  bg={'green'}/></div>}/> 
+      <Route path='/detail/:index/' element={
+        // <Context1.Provider value={{stock, clothes}}> </Context1.Provider> 여러개 넘겨줄때
+        <Context1.Provider value={{stock, clothes}}>
+          <Detail clothes={clothes} /> 
+        </Context1.Provider>  
+       }/> 
 
-        {/* Cart 컴포넌트 호출 */}
-      <Route path='/cart' element={<Cart />} />
-      
+     
       <Route path='*' element={<div>없는 페이지 입니다</div>}></Route>
     </Routes>
       
@@ -143,17 +156,13 @@ function About(){
 
 }
 
-
 function PListCol({clothes, i}){
   return(
     <>
       <Col md={4}>
-      <Link to={`/detail/${clothes.id}`} className="link-wrapper">
-        <img className="imgList" src={process.env.PUBLIC_URL + `/img/clothes${i}.jpg`} alt={clothes.title} />
+        <img className="imgList" src={process.env.PUBLIC_URL +`/img/clothes${i}.jpg`}/>
         <h4>{clothes.title}</h4>
         <p>{clothes.price}</p>
-      </Link>
-      <hr/>
       </Col>
     </>
   )

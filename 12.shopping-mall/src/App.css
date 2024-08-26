@@ -18,3 +18,27 @@
   object-fit: cover; /* 이미지가 박스 안에 꽉 차도록 조정, 비율을 유지함 */
   margin-bottom: 10px; /* 이미지 간격 */
 }
+
+.start {
+  /* 투명도 0부터 */
+   opacity:0; 
+ }
+
+.end{
+  /* 투명도 1까지 */
+  opacity: 1;
+  /* 애니메이션으로 1초동안 실행 */
+  transition: opacity 1s;
+}
+
+/* .start { */
+  /* 크기 0부터 */
+  /* transform: scale(0); */
+/* } */
+
+/* .end{ */
+  /* 크기 1까지 */
+  /* transform: scale(1); */
+  /* 애니메이션으로 1초동안 실행 */
+  /* transition: all 1s; */
+/* } */
