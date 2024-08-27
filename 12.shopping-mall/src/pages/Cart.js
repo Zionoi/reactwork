@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 //변경시 2.
 // import { changeName, ldl, increase} from '../store/store';
 // userSlice로 분할 후 import
-import { changeName,lel, increase, countUp} from '../store/userSlice';
+import { changeName,lel, increase} from '../store/userSlice';
 // 위에 reducers changeName을 사용하려면 해당 컴포넌트에 요청을 해야함
+import { countUp } from '../store/store';
 
 function Cart(){
 
@@ -15,7 +16,7 @@ function Cart(){
     console.log(state);
     console.log(state.user);
     let stock = useSelector(state => state.stock)
-    // let cart = useSelector(state => state.cart)
+    let cartP = useSelector(state => state.cart)
     let cart = useSelector(state => state.addCartList)
     let pList = useSelector(state => state.pList)
 
@@ -46,7 +47,7 @@ function Cart(){
                 {/* {stock.map((itemS)=>(
                         <tr>{itemS}</tr>
                 ))} */}
-                {cart.map((itemC)=>(
+                {cart.map((itemC,i)=>(
                     <tr>
                         <td>{itemC.id}</td>
                         <td>{itemC.title}</td>
@@ -60,7 +61,7 @@ function Cart(){
                                 변경1
                             </button>
                             <button variant="info" onClick={() => {
-                                dispatch(countUp())
+                                dispatch(countUp(i))
                             }}>
                                 +
                             </button>
@@ -73,15 +74,21 @@ function Cart(){
                         </td>
                     </tr>
                 ))}
-                {/* {pList.map((item) => (
-                        <tr key={item.id}>
+{/* 
+                <tr><td>교수님이 만든 버전</td></tr>
+                 {cartP.map((item, i) => (
+                        <tr>
                             <td>{item.id}</td>
-                            <td>{item.title}</td>
-                            <td>{item.price}</td>
-                            <td>{item.count || 'N/A'}</td>
-                            <td>@mdo</td>
+                             <td>{item.title}</td> 
+                             <td>{item.price}</td> 
+                            <td>{item.count}</td>
+                            <td><button variant="info" onClick={() => {
+                                dispatch(addCount(i))
+                            }}>
+                                +
+                            </button></td>
                         </tr>
-                ))} */}
+                ))}  */}
             </tbody>
         </Table>
     </div>    

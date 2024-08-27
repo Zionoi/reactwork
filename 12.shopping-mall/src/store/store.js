@@ -70,15 +70,22 @@ let stock = createSlice({
     initialState : [10,11,12] 
 })
 
+// 장바구니에서 추가한 상품 리스트 업 (교수님이만든버전)
 let cart = createSlice({
     name : 'product',
     initialState : [
     {id:0, title:'pants1', count:2},
     {id:2, title:'shirts1', count:1}
-    ]
+    ],
+    reducers : {
+        addCount(state, action){
+            state[action].count++
+        }
+    }
 })
+export let {addCount} =cart.actions;
 
-// 장바구니에서 추가한 상품 리스트 업
+// 장바구니에서 추가한 상품 리스트 업 (내가만든버전)
 let addCartList = createSlice({
     name : 'addCartList',
     initialState : [],
@@ -95,10 +102,14 @@ let addCartList = createSlice({
             }else {
                 state.push({ ...newItem, count: 1 }); // 새 상품 추가
             }
+        },
+        countUp(state, action){
+            let findId = state.findIndex(ind => ind.id == action.payload)
+            state[findId].count++;
         }
     }
 })
-export let { addToCart } = addCartList.actions;
+export let { addToCart, countUp } = addCartList.actions;
 
 // 다른컴포넌트에서 데이터 넘겨받기
 let product = createSlice({

@@ -90,8 +90,8 @@ function Detail(props){
                 {/* {tab == 0 ? <div>내용 0</div> : (tab == 1 ? <div>내용 1 </div> : <div>내용 2</div>)} */}
 
 
-                {/* 2. component 사용 */} 
-                <TabContent tab={tab} />
+            {/* 2. component 사용 */} 
+            <TabContent tab={tab} />
 
 
 
@@ -120,6 +120,7 @@ function Detail(props){
 
 //배열 리턴2
 function TabContent({tab}){
+    // 애니매이션을 주기위한 유즈스테이트 변수 선언
     let [fade, setFade] = useState('')
 
     // tab이 변할때마다 setFade로 fade값 바꿔줌
@@ -134,6 +135,7 @@ function TabContent({tab}){
 
 
     return(
+        // css에 해당 클래스내임 호출
         <div className={fade}> 
             {/* 위아 다르게 아래형태처럼 {중괄호} 없이 리턴하면 html형태로가는데 html에는 이런 문법이없음 그래서 {}객체형태로 보내줌 */}
             {[<div>배열 내용 0</div>,<div>배열 내용 1</div>,<div>배열 내용 2</div>][tab]}

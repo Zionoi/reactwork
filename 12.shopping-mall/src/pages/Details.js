@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Button, Nav} from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './../App.css';
 import { useDispatch } from 'react-redux'; 
 import {addToCart} from '../store/store'
@@ -10,7 +10,7 @@ import {addToCart} from '../store/store'
 function Detail(props){
     let {index} = useParams();
     const dispatch = useDispatch(); //
-
+    let navigate = useNavigate();
     let findId = props.clothes.find(function(x){
         return x.id == index;
     })
@@ -44,7 +44,6 @@ function Detail(props){
                 <Container className={fade2}>
                     <Row>
                         <div>
-                            ㄴㅇㄹㄴ
                         <Col lg={6}>
                             <img className="imgList" src={process.env.PUBLIC_URL +`/img/clothes${Number(findId.id)+1}.jpg`}/> 
                         </Col>
@@ -53,7 +52,10 @@ function Detail(props){
                             <p>{findId.content}</p>
                             <p>{findId.price}</p>
                             <Button variant="primary" onClick={() => {
-                                dispatch(addToCart(findId))
+                                dispatch(addToCart(findId));
+                                if(window.confirm('장바구니로 가시겠습니까?')){
+                                navigate('/Cart');
+                                }
                             }}>장바구니</Button>
                         </Col>
                         </div>

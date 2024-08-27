@@ -18,9 +18,7 @@ let user = createSlice({
         increase(state, num) {
             state.age += num.payload;
         },
-        countUp(state){
-            state.count++;
-        }
+        
 
     }
 })
