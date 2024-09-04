@@ -1,6 +1,9 @@
 import { useNavigate, Routes, Route, Link } from 'react-router-dom';
-import Home from './Home';
-
+import Home from './home/Home';
+import Board from './board/Board';
+import Sidebar from './Sidebar';
+import VisitSection from './VisitSection';
+import FriendsSection from './FriendsSection';
 
 function MainPanel({ onLogout }) { // onLogout props 추가
     const navigate = useNavigate();
@@ -13,18 +16,24 @@ function MainPanel({ onLogout }) { // onLogout props 추가
     return (
       <div style={{ display: 'flex' }}>
         <div className="left-panel">
+        <Sidebar />
         </div>
-        <div className="center-panel">
+        {/* <div className="center-panel">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/" element={<Board />} />
            
           </Routes>
-        </div>
+        </div> */}
         <div className="right-panel">
-          <nav>
-            <Link to="/"><button type="button" className="btn btn-outline-primary">Home</button></Link><br/>
-          </nav>
+         
           <button onClick={handleLogout} className="btn btn-outline-danger">로그아웃</button>
+        </div>
+        <div>
+        <aside className="right-side">
+          <VisitSection />
+          <FriendsSection />
+        </aside>
         </div>
       </div>
     );
