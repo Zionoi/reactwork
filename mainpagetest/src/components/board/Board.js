@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function ImageList() {
+
+function Board() {
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
 
@@ -20,7 +21,8 @@ function ImageList() {
   }, []);
 
   const handleImageClick = (bnum) => {
-    navigate(`/detail/${bnum}`);
+    console.log("Fetched images bnum:", bnum);
+    navigate(`/boardDetail/${bnum}`);
   };
 
   return (
@@ -43,8 +45,9 @@ function ImageList() {
           </div>
         ))}
       </div>
+      <Link to="/boardUpload"><button className="btn btn-outline-danger">글작성</button></Link>
     </div>
   );
 }
 
-export default ImageList;
+export default Board;
